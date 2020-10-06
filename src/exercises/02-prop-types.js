@@ -1,13 +1,17 @@
 // Learn more about React PropTypes here: https://facebook.github.io/react/docs/typechecking-with-proptypes.html
 import React from 'react';
-
+import propTypes from 'prop-types';
 function SayHello(props) {
     return (
         <div>
-            Hello {props.firstName} {props.lastName}!
+            Ivana {props.firstName} Srebrenova{props.lastName}!
         </div>
     );
 }
+  SayHello.propTypes = {
+        firstName: propTypes.string.isRequired,
+        lastName: propTypes.string.isRequired
+    };
 
 // Specify firstName and lastName PropTypes for the SayHello
 // component by giving SayHello a `propTypes` object property

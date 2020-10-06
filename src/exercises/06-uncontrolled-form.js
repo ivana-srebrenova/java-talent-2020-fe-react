@@ -19,10 +19,41 @@ import React, { Component } from 'react';
 // Render a CreateNoteForm component that will handle creating of a note with title and content.
 // This component also needs to contain an onSubmit handler that when clicked alerts the value of an input of both input fields.
 // For extracting the values of the input fields, use React Refs.
-class CreateNoteForm extends Component {
-    render() {
-        return <div>Render a form here</div>;
-    }
-}
 
+
+class CreateNoteForm extends Component {
+    constructor(props) {
+       super(props);
+       this.onSubmit = this.onSubmit.bind(this);
+       this.titleRef = React.createRef();
+       this.contentRef = React.createRef();
+     }
+
+     onSubmit = () => {
+       alert(
+         "Title:" +
+           this.titleRef.current.value +
+           ", content:" +
+           this.contentRef.current.value
+       );
+     };
+
+     render() {
+       return (
+         <div>
+           <form onSubmit={this.onSubmit}>
+             <label>
+               Title:
+               <input type='text' ref={this.titleRef}></input>
+             </label>
+             <label>
+               Content:
+               <input type='text' ref={this.contentRef}></input>
+             </label>
+             <button type='submit'>Submit</button>
+           </form>
+         </div>
+       );
+     }
+   }
 export const Example = () => <CreateNoteForm />;

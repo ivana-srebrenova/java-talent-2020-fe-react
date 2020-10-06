@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import the css styles using: `import './03-styling.css'`
 // this will use webpack to load the css styles into your app.
+import './03-styling.css';
 
 function Box(props) {
     return (
+
         // render a div with the props:
         // - className that is assigned to `Box Box--${props.size}`
         // - style that is assigned to props.style
         // inside the div, forward along props.children
-        <div>Incomplete</div>
+
+         <div className={`Box Box--${props.size}`} style={props.style}>
+              {props.children}
+       </div>
     );
 }
 
@@ -22,8 +27,17 @@ Box.propTypes = {
 
 export const Example = () => (
     <div>
-        Examples go in here... Give me 3 {`<Box>`} elements. One for each size. And
-        for each, specify a `style` prop with some custom styling (whatever you
-        want, maybe consider `backgroundColor`)
+    <Box className='Box--small' size='small' style={{color:"red"}} style={{backgroundColor: "lightgreen"}}>
+          Small one
+          </Box>
+        <Box className='Box' size='medium' style={{backgroundColor: "lightblue"}}>
+          Medium one
+          </Box>
+        <Box className='Box--large' size='large' style={{backgroundColor: "lightgrey"}}>
+          Large one
+          </Box>
+
+
+
     </div>
 );

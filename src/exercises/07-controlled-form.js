@@ -24,9 +24,98 @@ import React, { Component } from 'react';
 //   Since this is a EditNote functionality, we need to make sure to display the 'Default Title' and 'Default Content'
 //   when our component is rendered. 
 class EditNoteForm extends Component {
-    render() {
-        return <div>Render a form here</div>;
-    }
-}
+   constructor(props) {
+       super(props);
+
+       this.state = {
+         title: this.props.defaultTitle,
+         content: this.props.defaultContent,
+         titleError: "",
+         contentError: "",
+       };
+     }
+
+     titleErrorHandler = (e) => {
+       const value = e.target.value;
+
+       if (value.length === 0) {
+         this.setState({ titleError: "Title is a mandatory field" });
+
+         this.setState({ title: value });
+       } else if (value.length > 10) {
+         this.setState({
+           titleError: "Title cannot contain more than 10 characters",
+         });
+
+         this.setState({ title: value });
+       } else {
+         this.setState({ title: value });
+
+         this.setState({ titleError: "" });
+       }
+     };
+
+     contentErrorHandler = (e) => {
+       const value = e.target.value;
+
+       if (value.length === 0) {
+         this.setState({ contentError: "Content is a mandatory field" });
+
+         this.setState({ content: value });
+       } else {
+         this.setState({ content: value });
+
+         this.setState({ contentError: "" });
+       }
+     };
+
+     submitHandler = () => {
+       alert(`Title is: ${this.state.title} ,content is: ${this.state.content}`);
+     };
+
+     render() {
+       return (
+         <div>
+           <form>
+             <label>
+               Title:
+               <input
+                 type='text'
+                 name='title'
+                 id='title'
+                 onChange={this.titleErrorHandler}
+                 value={this.state.title}
+               ></input>
+             </label>
+
+             <p>{this.state.titleError}</p>
+
+             <label>
+               Content:
+               <input
+                 type='text'
+                 name='content'
+                 id='content'
+                 onChange={this.contentErrorHandler}
+                 value={this.state.content}
+               ></input>
+             </label>
+
+             <p>{this.state.contentError}</p>
+
+             <button
+               type='submit'
+               disabled={
+                 this.state.titleError !== "" || this.state.contentError !== ""
+               }
+               onClick={this.submitHandler}
+             >
+               Submit
+             </button>
+           </form>
+         </div>
+       );
+     }
+   }
 
 export const Example = () => <EditNoteForm defaultTitle="Default title" defaultContent="Default Content" />;
